@@ -4,7 +4,7 @@ internal class Program
 {
     private async static Task Main(string[] args)
     {
-        Thread.Sleep(5000);
+        await Task.Delay(5000);
         await new Application().StartAsync();
     }
 }
