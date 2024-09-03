@@ -4,6 +4,7 @@ using SignalRPlayground.Server.Services.Interfaces;
 
 namespace SignalRPlayground.Server.Controllers
 {
+    // HTTP requests used as a trigger
     [ApiController]
     [Route("api/notifications")]
     public class NotificationController : ControllerBase

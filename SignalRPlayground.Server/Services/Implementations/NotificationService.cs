@@ -5,7 +5,7 @@ using SignalRPlayground.Server.Services.Interfaces;
 
 namespace SignalRPlayground.Server.Services.Implementations
 {
-    public sealed class NotificationService : INotificationService
+    internal sealed class NotificationService : INotificationService
     {
         private readonly IHubContext<PlaygroundHub> _hub;
 
@@ -14,15 +14,11 @@ namespace SignalRPlayground.Server.Services.Implementations
             _hub = hub;
         }
 
-        public async Task SendNotificationToAllUsersAsync(Notification notification, CancellationToken cancellationToken = default)
-        {
+        public async Task SendNotificationToAllUsersAsync(Notification notification, CancellationToken cancellationToken = default) =>
             await _hub.Clients.All.SendAsync("NotifyAllClients", notification, cancellationToken);
-        }
 
-        public async Task SendNotificationToGroupAsync(string name, Notification notification, CancellationToken cancellationToken = default)
-        {
+        public async Task SendNotificationToGroupAsync(string name, Notification notification, CancellationToken cancellationToken = default) =>
             await _hub.Clients.Group(name).SendAsync("NotifyByGroup", notification, cancellationToken);
-        }
 
         public async Task SendNotificationToUserAsync(string userName, Notification notification, CancellationToken cancellationToken = default)
         {

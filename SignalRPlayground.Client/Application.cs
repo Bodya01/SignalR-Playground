@@ -6,7 +6,7 @@
 
         public Application()
         {
-            _signalRClient = new SignalRClient("https://localhost:7244/playground-hub");
+            _signalRClient = new SignalRClient(@"https://localhost:7244/playground-hub");
         }
 
         public async Task StartAsync()

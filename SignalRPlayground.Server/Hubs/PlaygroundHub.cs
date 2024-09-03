@@ -8,27 +8,21 @@ namespace SignalRPlayground.Server.Hubs
         [AllowAnonymous]
         public async Task EnterGroupAsync(string groupName)
         {
-            try
-            {
                 await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
                 Console.WriteLine($"User {Context.ConnectionId} joined group {groupName}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error adding user {Context.ConnectionId} to group {groupName}: {ex.Message}");
-                throw; // Re-throw the exception to ensure the client receives it
-            }
+
         }
 
         [AllowAnonymous]
         public async Task LeaveGroupAsync(string groupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+            Console.WriteLine($"User {Context.ConnectionId} left the group {groupName}");
         }
 
         public override Task OnConnectedAsync()
         {
-            ConnectionHelper.Connections.Add("Console client", Context.ConnectionId);
+            ConnectionHelper.Connections.Add("Console client", Context.ConnectionId); // only one client expected
             return base.OnConnectedAsync();
         }
     }

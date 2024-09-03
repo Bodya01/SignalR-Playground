@@ -8,6 +8,8 @@ namespace SignalRPlayground.Client
 
         public SignalRClient(string url)
         {
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(url, nameof(url));
+
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(url)
                 .WithAutomaticReconnect()
@@ -40,7 +42,6 @@ namespace SignalRPlayground.Client
             _hubConnection.Closed += async (error) =>
             {
                 await Console.Out.WriteLineAsync("SignalR connection closed. Will attempt to reconnect.");
-                // Optionally, handle additional logic or alert the user here.
             };
 
             _hubConnection.On<Notification>("NotifyAllClients", HandleAllClientMessage);
